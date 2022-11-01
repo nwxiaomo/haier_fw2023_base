@@ -1,0 +1,15 @@
+*.d
+/projects/MDK-ARM/Objects/object.crf
+*.o
+*.crf
+/projects/MDK-ARM/Objects/project.axf
+/projects/MDK-ARM/Objects/project.build_log.htm
+*.htm
+/projects/MDK-ARM/Objects/project.lnp
+/projects/MDK-ARM/Objects/project_N32G43x.dep
+/projects/MDK-ARM/Objects/project.sct
+*.map
+*.lst
+/projects/MDK-ARM/project.uvguix.admin
+/projects/MDK-ARM/RTE/_N32G43x/RTE_Components.h
+/projects/MDK-ARM/RTE/_Target_1/RTE_Components.h
