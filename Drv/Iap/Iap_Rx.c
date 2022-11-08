@@ -262,14 +262,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
 
                 case 0x01:
-									switch (Mop.State)
+									if(Mop.State == MopState_Run)
 									{
-										case MopState_Run:
 											Brush_Fan_Start();
-											break;
-
-										default:
-											break;
 									}
                   break;
 
@@ -285,14 +280,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                     break;
 
                 case 0x01:
-									switch (Mop.State)
+									if(Mop.State == MopState_Run)
 									{
-										case MopState_Run:
-											Brush_Heater_Start();
-											break;
-
-										default:
-											break;
+										 Brush_Heater_Start();
 									}
                   break;
 

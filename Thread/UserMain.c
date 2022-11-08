@@ -1,7 +1,6 @@
 #include "UserMain.h"
 #include "Thread.h"
 
-
 rt_sem_t sem_UserTick_1ms;      // 信号量，1ms时钟
 
 uint8_t  read_data = 0;
@@ -81,8 +80,7 @@ void UserMain(void)
             else
             {
 								LOG_DEB("user main running........");
-                Mcu.Tick_Loop_3s = 0;
-                
+                Mcu.Tick_Loop_3s = 0;    
             }
             
         }
