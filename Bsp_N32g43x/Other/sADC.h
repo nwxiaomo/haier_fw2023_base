@@ -47,6 +47,10 @@
 #define ADC_NtcTemperature_GPIO_PORT              GPIOA
 #define ADC_NtcTemperature_GPIO_PIN               GPIO_PIN_1
 
+#define ADC_RUBBISH_RX_CHANNEL                    ADC_Channel_12_PB10
+#define ADC_RUBBISH_RX_GPIO_PORT                  GPIOB
+#define ADC_RUBBISH_RX_GPIO_PIN                   GPIO_PIN_10
+
 //////// 使用的通道序号，总个数
 typedef enum
 {
@@ -56,6 +60,7 @@ typedef enum
 		ADC_CH_PeristalticPumpCurrent,     // 3
 		ADC_CH_Inflow,                     // 4
 		ADC_CH_NtcTemperature,             // 5
+	  ADC_CH_Rubbish_RX,                 // 6
 		ADC_CH_SIZE                        // 通道总个数
 } ADC_CH_t;
 

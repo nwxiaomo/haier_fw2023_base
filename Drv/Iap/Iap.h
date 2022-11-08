@@ -10,6 +10,8 @@
 
 #define IAP_UART_HEAD       (0xA5)
 
+//#define IAP_ASK_FRAME_SENDTIME       (200)						// 请求帧发送时间ms
+
 #define IAP_ASK_FRAME_SENDTIME       (200)						// 请求帧发送时间ms
 #define IAP_Beat_OVERTIME_MAX       (IAP_ASK_FRAME_SENDTIME*5)	// 字节间隔时间ms
 

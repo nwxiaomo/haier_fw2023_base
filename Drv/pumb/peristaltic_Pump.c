@@ -13,12 +13,12 @@ void Peristaltic_Pump_Init(void)
 //////// Bsp
 void Peristaltic_Pump_ON(void)
 {
-	  BRUSH_FAN_CTRL_ON();
+	  Bsp_Peristaltic_Pump_Duty_Set(600);
 }
 
 void Peristaltic_Pump_OFF(void)
 {
-	  BRUSH_FAN_CTRL_OFF();
+	  Bsp_Peristaltic_Pump_Duty_Set(0);
 }
 
 //////// 状态跳转

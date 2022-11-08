@@ -37,10 +37,10 @@ void Drv_Start_All(void)
 	
 	  Bsp_Drain_Valve_Duty_Set(999);
 	
-	  BRUSH_FAN_CTRL_ON();
-		RUBBISH_FAN_CTRL_ON();
+	  Fan_Start();
+		Rubbish_Fan_Start();
 		
-		MAGNETIC_VALVE_CTRL_ON();
+		Magnetic_Valve_Start();
 }
 
 void Drv_Stop_All(void)

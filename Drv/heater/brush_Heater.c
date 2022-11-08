@@ -13,7 +13,7 @@ void Brush_Heater_Init(void)
 //////// Bsp
 void Brush_Heater_ON(void)
 {
-	  Bsp_Brush_Heater_Duty_Set(999);
+	  Bsp_Brush_Heater_Duty_Set(900);
 }
 
 void Brush_Heater_Off(void)

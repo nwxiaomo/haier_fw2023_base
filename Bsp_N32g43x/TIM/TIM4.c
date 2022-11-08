@@ -12,7 +12,7 @@ void TIM4_Init(void)
 
     /* Time base configuration */
     TIM_TimeBaseStructure.Period    =  50 -1;
-    TIM_TimeBaseStructure.Prescaler = (uint16_t)Cal_General_TIM_CLock() - 1;
+    TIM_TimeBaseStructure.Prescaler = (uint16_t)( Cal_General_TIM_CLock() / 1000 / 1000) - 1;
     TIM_TimeBaseStructure.ClkDiv    = TIM_CLK_DIV1;
     TIM_TimeBaseStructure.CntMode   = TIM_CNT_MODE_UP;
 	

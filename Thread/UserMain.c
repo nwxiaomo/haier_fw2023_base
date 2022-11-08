@@ -23,8 +23,7 @@ void UserMain(void)
 
     //////// Start ////////
     Bsp_Start();
-	  	
-	
+
     for (;;)
     {
         rt_sem_take(sem_UserTick_1ms, RT_WAITING_FOREVER);

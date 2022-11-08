@@ -151,7 +151,7 @@ void Iap_Tx_Request(void)
     pIap_Tx_Frame->DataLen = 11;
 
     //////// 准备数据
-		pIap_Tx_Frame->Data[0] = Fan.State;
+		pIap_Tx_Frame->Data[0] = brush_fan.State;
 		pIap_Tx_Frame->Data[1] = brush_heater.State;
 		pIap_Tx_Frame->Data[2] = 0;
 		pIap_Tx_Frame->Data[3] = Mop.Error;
@@ -162,7 +162,8 @@ void Iap_Tx_Request(void)
 		pIap_Tx_Frame->Data[7] = peristaltic_pump.State;
 		
 		pIap_Tx_Frame->Data[8] = rubbish_fan.State;
-		pIap_Tx_Frame->Data[9] = brush_fan.State;
+		pIap_Tx_Frame->Data[9] = Fan.State;
+		
 		pIap_Tx_Frame->Data[10] = base_module.Base_NTC_Info.ModuleState 
 															|(base_module.Trash_Basket_Info.ModuleState << 1)
 															|(base_module.Cleaning_Material_Info.ModuleState << 2)

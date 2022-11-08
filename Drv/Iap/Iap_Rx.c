@@ -255,27 +255,28 @@ void HeatBase_Rx_Frame_Analyze(void)
                 return;
             }
 						
-			      // 风机
-            switch (Iap_Rx.Frame.Data[0])
+						switch (Iap_Rx.Frame.Data[0])
             {
                 case 0x00:
-                    Fan_Stop();
-                    break;
+									Brush_Fan_Stop();
+                  break;
 
                 case 0x01:
-										switch (Mop.State)
-										{
-											case MopState_Run:
-												Fan_Start();
-												break;
-											default:
-												break;
-										}
-										break;
+									switch (Mop.State)
+									{
+										case MopState_Run:
+											Brush_Fan_Start();
+											break;
+
+										default:
+											break;
+									}
+                  break;
 
                 default:
-                    break;
+                  break;
             }
+
 			     // PTC
             switch (Iap_Rx.Frame.Data[1])
             {
@@ -409,27 +410,29 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
             }
 						
-						switch (Iap_Rx.Frame.Data[7])
+
+			      // 风机
+            switch (Iap_Rx.Frame.Data[8])
             {
                 case 0x00:
-									Brush_Fan_Stop();
-                  break;
+                    Fan_Stop();
+                    break;
 
                 case 0x01:
-									switch (Mop.State)
-									{
-										case MopState_Run:
-											Brush_Fan_Start();
-											break;
-
-										default:
-											break;
-									}
-                  break;
+										switch (Mop.State)
+										{
+											case MopState_Run:
+												Fan_Start();
+												break;
+											default:
+												break;
+										}
+										break;
 
                 default:
-                  break;
+                    break;
             }
+						
 			
 						rt_mb_send(mb_AppEvent, AppEvent_Comm_Connect);
             break;
