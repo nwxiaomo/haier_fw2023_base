@@ -25,8 +25,12 @@ typedef enum
 
 
     // 功率器件
-	IapCmd_Fan      	= 0x40, // 风扇
-    IapCmd_Ptc			= 0x41, // PTC
+		IapCmd_Brush_Fan      	= 0x40, // 风扇
+    IapCmd_Brush_Heater			= 0x41, // PTC
+		
+	
+	
+	
 } Comm_Cmd_t;
 
 

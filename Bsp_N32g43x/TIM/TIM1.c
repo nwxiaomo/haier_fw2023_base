@@ -1,19 +1,5 @@
 #include "TIM1.h"
 
-#if defined FW2023B
-    /* 
-			TIM1_CH1 PA8     Drain_Valve PWM 
-			TIM1_CH2 PA9     Cooling_Fan_Ctrl PWM 
-			TIM1_CH3 PA10    Rubbish_Heater PWM
-			TIM1_CH4 PA11    Brush_Heater PWM 
-		*/
-    #define TIM_FREQ_Hz     (1000)
-#elif defined BldcPwmPA15
-    //////// TIM0_CH3 PA11    Brush PWM
-    #define TIM_FREQ_Hz     (1000)
-    //#define TIM_FREQ_Hz     (8000)
-#endif
-
 static void TIM1_GPIO_Configuration(void)
 {
     GPIO_InitType GPIO_InitStructure;
@@ -88,6 +74,8 @@ void TIM1_Init(void)
     TIM_On(TIM1);
 		
 		TIM_PWM_Output_Enable(TIM1);
+		
+		LOG_DEB("Bsp TIM1 init finish.");
 }
 
 

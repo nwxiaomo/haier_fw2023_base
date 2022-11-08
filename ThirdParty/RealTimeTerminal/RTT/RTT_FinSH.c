@@ -8,9 +8,15 @@ char rt_hw_console_getchar(void)
     return ch;
 }
 
-void rt_hw_console_output(const char *str)
-{
-    rt_enter_critical();
+void app_console_output(const char *str){
+	  rt_enter_critical();
     SEGGER_RTT_printf(0, "%s", str);
     rt_exit_critical();
+}
+
+void rt_hw_console_output(const char *str)
+{
+	#ifdef RT_LOG_OPEN
+		app_console_output(str);
+	#endif
 }

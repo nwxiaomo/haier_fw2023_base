@@ -39,7 +39,7 @@ void Mop_Shut(void)
 {
 	Mop.Tick = 0;
 	    
-	if (Fan.State == State_Run)    // 正常shut流程
+	if (brush_fan.State == State_Run)    // 正常shut流程
     {
         Mop_Step_Shut();
 
@@ -79,9 +79,11 @@ void Mop_Task(void)
 
         case MopState_Start:
 			// 底座水满
+				  LOG_DEB("The mop state is start.");
 					if (base_module.Base_Inflow_Info.ModuleState == 1)
 					{
-										Mop_Error(MopError_Base_WaterFull);
+						LOG_ERR("mop error:[water full]");
+						Mop_Error(MopError_Base_WaterFull);
 					}
 					else
 					{
@@ -93,9 +95,11 @@ void Mop_Task(void)
         case MopState_Run:
             //////// 故障检测
 					// 底座水满
+					LOG_DEB("The mop state is run.");
 					if (base_module.Base_Inflow_Info.ModuleState == 1)
-					{
-										Mop_Error(MopError_Base_WaterFull);
+					{	
+						LOG_ERR("mop error:[water full]");
+						Mop_Error(MopError_Base_WaterFull);
 					}
 		
             break;
@@ -110,6 +114,7 @@ void Mop_Task(void)
 
         case MopState_Shut:
 						Mop.Tick++;
+						LOG_DEB("The mop state is shut.");
 						if (Mop.Tick >= ELAPSE_s(1))   // 等待PTC散热完成  ELAPSE_min(2)
 									{
 											Mop.Tick = 0;

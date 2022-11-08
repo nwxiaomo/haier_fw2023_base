@@ -82,6 +82,8 @@ void Fault_Led_Stop(void)
 }
 
 
+
+
 void All_Led_Close(void)
 {
 	Rubbish_Full_Led_Stop();

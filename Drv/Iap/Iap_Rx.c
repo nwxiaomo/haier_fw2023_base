@@ -182,7 +182,7 @@ void Iap_Rx_Frame_Analyze(void)
             Iap_Tx_Respond();
             break;
 		
-        case IapCmd_Fan:
+        case IapCmd_Brush_Fan:
             if (Iap_Rx.Frame.DataLen < 2)
             {
                  return;
@@ -196,11 +196,11 @@ void Iap_Rx_Frame_Analyze(void)
                     switch (Iap_Rx.Frame.Data[1])
                     {
                         case 0x00:  // 关闭
-                            Fan_Stop();
+                            Brush_Fan_Stop();
                             break;
 
                         default:    // 打开
-                            Fan_Start();
+                            Brush_Fan_Start();
                             break;
                     }
                     break;
@@ -211,7 +211,7 @@ void Iap_Rx_Frame_Analyze(void)
             Iap_Tx_Respond();
             break;
 		
-        case IapCmd_Ptc:
+        case IapCmd_Brush_Heater:
             if (Iap_Rx.Frame.DataLen < 2)
             {
                  return;
@@ -225,11 +225,11 @@ void Iap_Rx_Frame_Analyze(void)
                     switch (Iap_Rx.Frame.Data[1])
                     {
                         case 0x00:  // 关闭
-                            //Ptc_Stop();
+                            Brush_Heater_Stop();
                             break;
 
                         default:    // 打开
-                            //Ptc_Start();
+                            Brush_Heater_Start();
                             break;
                     }
                     break;
@@ -262,14 +262,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
 
                 case 0x01:
-									switch (Mop.State)
+									if( Mop.State == MopState_Run)
 									{
-										case MopState_Run:
-											Brush_Fan_Start();
-											break;
-
-										default:
-											break;
+										Brush_Fan_Start();
 									}
                   break;
 
@@ -285,14 +280,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                     break;
 
                 case 0x01:
-									switch (Mop.State)
+									if( Mop.State == MopState_Run)
 									{
-										case MopState_Run:
-											Brush_Heater_Start();
-											break;
-
-										default:
-											break;
+										Brush_Heater_Start();
 									}
                   break;
 
@@ -307,14 +297,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
 
                 case 0x01:
-									switch (Mop.State)
+									if( Mop.State == MopState_Run)
 									{
-										case MopState_Run:
-											Rubbish_Heater_Start();
-											break;
-
-										default:
-											break;
+										Rubbish_Heater_Start();
 									}
                   break;
 
@@ -329,14 +314,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
 
                 case 0x01:
-									switch (Mop.State)
+									if( Mop.State == MopState_Run)
 									{
-										case MopState_Run:
 											Drain_Valve_Start();
-											break;
-
-										default:
-											break;
 									}
                   break;
 
@@ -351,14 +331,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
 
                 case 0x01:
-									switch (Mop.State)
+									if( Mop.State == MopState_Run)
 									{
-										case MopState_Run:
-											Magnetic_Valve_Start();
-											break;
-
-										default:
-											break;
+										Magnetic_Valve_Start();
 									}
                   break;
 
@@ -373,14 +348,9 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
 
                 case 0x01:
-									switch (Mop.State)
+									if( Mop.State == MopState_Run)
 									{
-										case MopState_Run:
-											Peristaltic_Pump_Start();
-											break;
-
-										default:
-											break;
+										Peristaltic_Pump_Start();
 									}
                   break;
 
@@ -395,21 +365,15 @@ void HeatBase_Rx_Frame_Analyze(void)
                   break;
 
                 case 0x01:
-									switch (Mop.State)
+									if( Mop.State == MopState_Run)
 									{
-										case MopState_Run:
 											Rubbish_Fan_Start();
-											break;
-
-										default:
-											break;
 									}
                   break;
 
                 default:
                   break;
             }
-						
 
 			      // 风机
             switch (Iap_Rx.Frame.Data[8])
@@ -419,15 +383,11 @@ void HeatBase_Rx_Frame_Analyze(void)
                     break;
 
                 case 0x01:
-										switch (Mop.State)
-										{
-											case MopState_Run:
-												Fan_Start();
-												break;
-											default:
-												break;
-										}
-										break;
+									if( Mop.State == MopState_Run)
+									{
+										Fan_Start();
+									}
+									break;
 
                 default:
                     break;

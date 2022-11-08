@@ -2,6 +2,7 @@
 
 void Bsp_Init(void)
 {
+	  LOG_DEB("Bsp init start.");
     Mcu_Init();
 
     Bsp_DMA_Init();
@@ -13,6 +14,7 @@ void Bsp_Init(void)
     TIM3_Init();
     TIM4_Init();
 	  TIM5_Init();
+		TIM6_Init();
 	
 		Exti_Init();
 
@@ -24,6 +26,8 @@ void Bsp_Init(void)
     #ifdef WDG_EN
         WDG_Init();
     #endif
+		
+		LOG_DEB("Bsp init finish.");
 }
 
 

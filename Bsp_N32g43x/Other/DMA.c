@@ -39,11 +39,11 @@ void Bsp_DMA_Init(void)
     //Start
     DMA_Channel_Enable(DMA_CH1);
 		
+		LOG_DEB("Bsp DMA init finish.");
+		
 }
 
-extern rt_sem_t sem_UserTick_1ms;
-
-// 0.5ms
+// 0.35ms
 void DMA_Channel1_IRQHandler(void)
 {
     rt_interrupt_enter();
@@ -83,9 +83,6 @@ void DMA_Channel1_IRQHandler(void)
             //////// 计算20个数的平均值
             sADC.Value_Filtered_1ms[i] = (sADC.Value_Filtered_Half[i] + sADC.Value_Filtered_Full[i]) / 2;
         }
-
-        //
-        rt_sem_release(sem_UserTick_1ms);
     }
 
     ////////

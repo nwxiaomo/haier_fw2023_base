@@ -60,6 +60,8 @@ void Exti_Init(void)
     NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
     NVIC_Initializes(&NVIC_InitStructure);
 		
+		LOG_DEB("Bsp EXIT init finish.");
+		
 }
 
  void EXTI15_10_IRQHandler(void)

@@ -142,6 +142,7 @@ void Brush_Fan_Info_Update(void)
 			}
 			else
 			{
+				  LOG_ERR("The fan is working.");
 					newState = Working_State_Set;
 			}
 		}
@@ -161,6 +162,7 @@ void Base_Inflow_Info_Update(void)
     if (getVoterResult(voltage, BASE_INFLOW_THRESHOLD))	//
     {
         newState = Working_State_Set; // 底座水量检测 进水
+				LOG_ERR("The water inflow to base.");
     }
     else
     {
@@ -181,6 +183,7 @@ void Base_NTC_Info_Update(void)
     if (getVoterResult(voltage, BASE_NTC_THRESHOLD))	//
     {
         newState = Working_State_Set; // 温度过高
+			  LOG_ERR("The base temperature is too high.");
     }
     else
     {

@@ -17,6 +17,8 @@ void WDG_Init(void)
                             = LsiFreq/128 */
 	
     IWDG_Counter_Reload(625);
+		
+		LOG_DEB("Bsp IWDG init finish.");
 }
 
 

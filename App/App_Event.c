@@ -9,6 +9,7 @@ rt_mailbox_t mb_AppEvent;
 // 通讯应答
 void Comm_Connect_Event(void)
 {
+	  LOG_DEB("The connect event has trigger.");
     switch (App.State)
     {
         case AppState_Start:
@@ -28,6 +29,7 @@ void Comm_Connect_Event(void)
 // 通讯断开
 void Comm_Disconnect_Event(void)
 {
+	  LOG_DEB("The disconnect event has trigger.");
     switch (App.State)
     {
         case AppState_Mop:
@@ -50,6 +52,7 @@ void Comm_Disconnect_Event(void)
 
 void Goto_Standby_Event(void)
 {
+		LOG_DEB("The goto standby event has trigger.");
     AppState_Goto(AppState_Standby);
 }
 

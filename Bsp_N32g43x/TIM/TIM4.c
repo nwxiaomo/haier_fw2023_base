@@ -33,6 +33,7 @@ void TIM4_Init(void)
 		TIM_Auto_Reload_Preload_Enable(TIM4);
 
 		TIM4->CCDAT4 = 10;
+		LOG_DEB("Bsp TIM4 init finish.");
 }
 
 

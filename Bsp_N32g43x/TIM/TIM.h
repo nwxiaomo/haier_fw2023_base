@@ -9,5 +9,6 @@
 #include "TIM3.h"
 #include "TIM4.h"
 #include "TIM5.h"
+#include "TIM6.h"
 
 #endif

@@ -60,6 +60,8 @@ void IO_Init(void)
 		
 		//open rubbish tx
 		RUBBISH_IR_TX_ON();
+		
+		LOG_DEB("Bsp GPIO init finish.");
 
 }
 

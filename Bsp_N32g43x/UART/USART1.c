@@ -62,4 +62,6 @@ void USART1_Init(void)
 		
 	  USART_Enable(USART1);
 		
+		LOG_DEB("Bsp USART1 init finish.");
+		
 }

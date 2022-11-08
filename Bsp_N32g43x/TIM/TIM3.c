@@ -49,6 +49,7 @@ void TIM3_Init(void)
     TIM_On(TIM3);
 		
 		TIM_PWM_Output_Enable(TIM3);
+		LOG_DEB("Bsp TIM3 init finish.");
 }
 
 void TIM3_CH3_Duty_Set(uint32_t Duty)

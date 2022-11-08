@@ -124,8 +124,8 @@ void Iap_Tx_Respond(void)
 
 
         //////// 功率器件
-        case IapCmd_Fan:
-        case IapCmd_Ptc:
+        case IapCmd_Brush_Fan:
+        case IapCmd_Brush_Heater:
             Iap_Copy_Data(pIap_Tx_Frame, &(Iap_Rx.Frame));
             break;
 

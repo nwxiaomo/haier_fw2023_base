@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>N32G43X, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\firmware\CMSIS\device;..\..\firmware\CMSIS\core;..\..\firmware\n32g430_std_periph_driver\inc;..\inc;..\..\ThirdParty;..\..\ThirdParty\Check;..\..\ThirdParty\Diy;..\..\ThirdParty\List;..\..\ThirdParty\List\ListRing;..\..\ThirdParty\PID;..\..\ThirdParty\RealTimeTerminal;..\..\ThirdParty\RealTimeTerminal\RTT;..\..\common;..\..\App;..\..\App\Charge;..\..\App\Halt;..\..\App\Mop;..\..\App\IapMcuUpdata;..\..\App\IapTester;..\..\App\SelfClean;..\..\App\SelfDry;..\..\App\Standby;..\..\App\WifiPair;..\..\Bsp_N32g43x;..\..\Bsp_N32g43x\UART;..\..\Bsp_N32g43x\TIM;..\..\Bsp_N32g43x\Other;..\..\Drv;..\..\Drv\Brush;..\..\Drv\Dirtliness;..\..\Drv\Electrolyze;..\..\Drv\Iap;..\..\Drv\Inhale;..\..\Drv\Key;..\..\Drv\Memory;..\..\Drv\Memory\Config;..\..\Drv\Memory\EasyFlash\inc;..\..\Drv\Memory\Env;..\..\Thread;..\..\Drv\fan;..\..\Drv\ptc;..\..\Drv\heater;..\..\Drv\led;..\..\Drv\valve;..\..\Drv\monitor;..\..\Drv\pumb</IncludePath>
+              <IncludePath>..\..\firmware\CMSIS\device;..\..\firmware\CMSIS\core;..\..\firmware\n32g430_std_periph_driver\inc;..\inc;..\..\ThirdParty;..\..\ThirdParty\Check;..\..\ThirdParty\Diy;..\..\ThirdParty\List;..\..\ThirdParty\List\ListRing;..\..\ThirdParty\PID;..\..\ThirdParty\RealTimeTerminal;..\..\ThirdParty\RealTimeTerminal\RTT;..\..\common;..\..\App;..\..\App\Charge;..\..\App\Halt;..\..\App\Mop;..\..\App\IapMcuUpdata;..\..\App\IapTester;..\..\App\SelfClean;..\..\App\SelfDry;..\..\App\Standby;..\..\App\WifiPair;..\..\Bsp_N32g43x;..\..\Bsp_N32g43x\UART;..\..\Bsp_N32g43x\TIM;..\..\Bsp_N32g43x\Other;..\..\Drv;..\..\Drv\Brush;..\..\Drv\Dirtliness;..\..\Drv\Electrolyze;..\..\Drv\Iap;..\..\Drv\Inhale;..\..\Drv\Key;..\..\Drv\Memory;..\..\Drv\Memory\Config;..\..\Drv\Memory\EasyFlash\inc;..\..\Drv\Memory\Env;..\..\Thread;..\..\Drv\fan;..\..\Drv\ptc;..\..\Drv\heater;..\..\Drv\led;..\..\Drv\valve;..\..\Drv\monitor;..\..\Drv\pumb;..\..\log</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -599,6 +599,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Bsp_N32g43x\TIM\TIM5.c</FilePath>
             </File>
+            <File>
+              <FileName>TIM6.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp_N32g43x\TIM\TIM6.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -773,6 +778,21 @@
               <FileName>UserMain.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Thread\UserMain.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Log</GroupName>
+          <Files>
+            <File>
+              <FileName>debug.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\log\debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>n32g43x_Platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\log\n32g43x_Platform.c</FilePath>
             </File>
           </Files>
         </Group>

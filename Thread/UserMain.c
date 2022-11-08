@@ -9,6 +9,7 @@ void UserMain(void)
 {
     sem_UserTick_1ms = rt_sem_create("tick1ms", 0, RT_IPC_FLAG_FIFO);
 	
+		Log_Init();
     //////// Bsp
 		Bsp_Init();
 
@@ -17,9 +18,6 @@ void UserMain(void)
 
     //////// App
     App_Init();
-
-    //////// Debug，调试用
-    //Debug_Init();
 
     //////// Start ////////
     Bsp_Start();
@@ -38,11 +36,6 @@ void UserMain(void)
 
         //////// App
         App_Task();
-
-
-        //////// Debug，调试用
-        //Debug_Test();
-
 
         //////// Tick ////////
         // 1ms
@@ -86,13 +79,12 @@ void UserMain(void)
             }
             else
             {
+								LOG_DEB("user main running........");
                 Mcu.Tick_Loop_3s = 0;
                 
             }
             
         }
-				
-			  //rt_thread_delay(1);    //delay 250ms
 
         //Interval_Stop();
     }

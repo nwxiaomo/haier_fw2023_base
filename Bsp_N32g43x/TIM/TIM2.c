@@ -18,6 +18,7 @@ void TIM2_Init(void)
 	
     // Start
     TIM_On(TIM2);
+		LOG_DEB("Bsp TIM2 init finish.");
 }
 
 uint32_t TIM2_Get_Cnt(void)

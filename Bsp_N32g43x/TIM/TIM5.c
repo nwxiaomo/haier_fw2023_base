@@ -46,6 +46,8 @@ void TIM5_Init(void)
     //////// Start
     TIM_On(TIM5);
 		
+		LOG_DEB("Bsp TIM5 init finish.");
+		
 }
 
 
