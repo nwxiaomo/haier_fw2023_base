@@ -12,7 +12,7 @@
 
 //#define IAP_ASK_FRAME_SENDTIME       (200)						// 请求帧发送时间ms
 
-#define IAP_ASK_FRAME_SENDTIME       (200)						// 请求帧发送时间ms
+#define IAP_ASK_FRAME_SENDTIME       (100)						  // 请求帧发送时间ms
 #define IAP_Beat_OVERTIME_MAX       (IAP_ASK_FRAME_SENDTIME*5)	// 字节间隔时间ms
 
 #define HeatBaseCmd_Operate 0x10								// 烘干底座操作命令
