@@ -36,7 +36,6 @@
 #define ADC_PeristalticPumpCurrent_GPIO_PORT      GPIOA
 #define ADC_PeristalticPumpCurrent_GPIO_PIN       GPIO_PIN_7
 
-
 //进水检测
 #define ADC_Inflow_CHANNEL                        ADC_Channel_01_PA0
 #define ADC_Inflow_GPIO_PORT                      GPIOA
@@ -51,6 +50,21 @@
 #define ADC_RUBBISH_RX_GPIO_PORT                  GPIOB
 #define ADC_RUBBISH_RX_GPIO_PIN                   GPIO_PIN_10
 
+//垃圾风道温度检测
+#define ADC_RUBBISH_NTC_CHANNEL                   ADC_Channel_10_PB1
+#define ADC_RUBBISH_NTC_GPIO_PORT                 GPIOB
+#define ADC_RUBBISH_NTC_GPIO_PIN                  GPIO_PIN_1
+
+//清水箱中转清水泵
+#define ADC_TANK_CLEAR_CHANNEL                    ADC_Channel_03_PA2
+#define ADC_TANK_CLEAR_GPIO_PORT                  GPIOA
+#define ADC_TANK_CLEAR_GPIO_PIN                   GPIO_PIN_2
+
+//垃圾满红外接收2
+#define ADC_RUBBISH_RX2_CHANNEL                   ADC_Channel_13_PB11  
+#define ADC_RUBBISH_RX2_GPIO_PORT                 GPIOB
+#define ADC_RUBBISH_RX2_GPIO_PIN                  GPIO_PIN_11
+
 //////// 使用的通道序号，总个数
 typedef enum
 {
@@ -60,7 +74,10 @@ typedef enum
 		ADC_CH_PeristalticPumpCurrent,     // 3
 		ADC_CH_Inflow,                     // 4
 		ADC_CH_NtcTemperature,             // 5
-	  ADC_CH_Rubbish_RX,                 // 6
+	  	ADC_CH_Rubbish_RX,                 // 6
+		ADC_CH_Rubbish_NTC,                // 7
+		ADC_CH_Tank_Clear,                 // 8
+		ADC_CH_Rubbish_RX2,                // 9
 		ADC_CH_SIZE                        // 通道总个数
 } ADC_CH_t;
 

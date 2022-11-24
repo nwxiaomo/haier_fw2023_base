@@ -2,16 +2,11 @@
 #include "mop.h"
 #include "monitor.h"
 
-
+led_list_t led_list = {0};
 
 Device_t rubbish_full_led = {0};
 Device_t clean_led = {0};
 Device_t fault_led = {0};
-
-void Led_Init(void)
-{
-	
-}
 
 //////// Bsp
 void Rubbish_Full_Led_ON(void)
@@ -81,14 +76,82 @@ void Fault_Led_Stop(void)
     fault_led.State = State_Stop;
 }
 
-
-
-
 void All_Led_Close(void)
 {
 	Rubbish_Full_Led_Stop();
 	Clean_Led_Stop();
 	Fault_Led_Stop();
+}
+
+void Led_Init(void)
+{
+	led_list.rubbish_full_led.led_on = Rubbish_Full_Led_ON;
+	led_list.rubbish_full_led.led_off = Rubbish_Full_Led_OFF;
+
+	led_list.clean_led.led_on  = Clean_Led_ON;
+	led_list.clean_led.led_off = Clean_Led_OFF;
+
+	led_list.fault_led.led_on = Fault_Led_ON;
+	led_list.fault_led.led_off = Fault_Led_OFF;
+	
+//	led_list.rubbish_full_led.led_state = LedState_FlashFast;
+//	led_list.clean_led.led_state = LedState_On;
+//	led_list.fault_led.led_state = LedState_FlashFast;
+	
+//	Rubbish_Full_Led_Start();
+//	Clean_Led_Start();
+//	Fault_Led_Start();
+}
+
+static void Led_State_updata(void)
+{
+		static int Flash_Tick;
+    for (uint32_t i=0; i<sizeof(led_list_t)/sizeof(led_info_t); i++)
+    {
+        switch ((*((led_info_t *)(&led_list.rubbish_full_led) + i)).led_state)
+        {
+            case LedState_Off:
+                (*((led_info_t *)(&led_list.rubbish_full_led) + i)).led_off();
+                break;
+
+            case LedState_On:
+                (*((led_info_t *)(&led_list.rubbish_full_led) + i)).led_on();
+                break;
+
+            case LedState_FlashSlow:
+                if (Flash_Tick < 2000)
+                {
+                    (*((led_info_t *)(&led_list.rubbish_full_led) + i)).led_on();
+                }
+                else
+                {
+                    (*((led_info_t *)(&led_list.rubbish_full_led) + i)).led_off();
+                }
+                break;
+
+            case LedState_FlashFast:
+                if (Flash_Tick % 1000 < 500)
+                {
+                    (*((led_info_t *)(&led_list.rubbish_full_led) + i)).led_on();
+                }
+                else
+                {
+                    (*((led_info_t *)(&led_list.rubbish_full_led) + i)).led_off();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    //////// 闪烁 ////////
+    Flash_Tick++;
+    if (Flash_Tick >= 4000)
+    {
+        Flash_Tick = 0;
+    }
+
 }
 
 void Led_Task(void)
@@ -100,14 +163,14 @@ void Led_Task(void)
             case State_Stop:
 							  if( base_module.Trash_Basket_Full_Info.ModuleState == Working_State_Set)
 								{
-									Rubbish_Full_Led_Start();
+									led_list.rubbish_full_led.led_state = LedState_FlashFast;
 								}
                 break;
 
             case State_Run:	
 							  if( base_module.Trash_Basket_Full_Info.ModuleState == Working_State_Reset)
 								{
-									Rubbish_Full_Led_Stop();
+									led_list.rubbish_full_led.led_state = LedState_Off;
 								}
                 break;
 
@@ -120,14 +183,14 @@ void Led_Task(void)
             case State_Stop:
 							  if(Mop.State == MopState_Run)
 								{
-									Clean_Led_Start();
+									led_list.clean_led.led_state = LedState_On;
 								}
                 break;
 
             case State_Run:
 							  if(Mop.State != MopState_Run)
 								{
-									Clean_Led_Stop();
+									led_list.clean_led.led_state = LedState_Off;
 								}
                 break;
 
@@ -141,21 +204,22 @@ void Led_Task(void)
             case State_Stop:
 							  if( base_module.Base_Inflow_Info.ModuleState == Working_State_Set)
 								{
-									Fault_Led_Start();
+									led_list.fault_led.led_state = LedState_FlashFast;
 								}
                 break;
 
             case State_Run:	
 							  if( base_module.Base_Inflow_Info.ModuleState == Working_State_Reset)
 								{
-									Fault_Led_Stop();
+									led_list.fault_led.led_state = LedState_Off;
 								}
                 break;
 
             default:		
 				
                 break;
-        }
-				
+        }	
     }
+		
+		Led_State_updata();
 }

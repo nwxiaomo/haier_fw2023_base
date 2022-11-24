@@ -157,7 +157,7 @@ void Iap_Tx_Request(void)
 		pIap_Tx_Frame->Data[3] = Mop.Error;
 		
 		pIap_Tx_Frame->Data[4] = rubbish_heater.State;
-		pIap_Tx_Frame->Data[5] = drain_valve.State;
+		pIap_Tx_Frame->Data[5] = drain_valve_info.device.State;
 		pIap_Tx_Frame->Data[6] = magnetic_valve.State;
 		pIap_Tx_Frame->Data[7] = peristaltic_pump.State;
 		

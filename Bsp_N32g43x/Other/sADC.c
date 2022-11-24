@@ -24,6 +24,9 @@ void ADC_Init(void)
     gpio_init( ADC_Inflow_GPIO_PORT, GPIO_MODE_ANALOG, GPIO_SLEW_RATE_FAST, ADC_Inflow_GPIO_PIN );
     gpio_init( ADC_NtcTemperature_GPIO_PORT,  GPIO_MODE_ANALOG, GPIO_SLEW_RATE_FAST, ADC_NtcTemperature_GPIO_PIN );
 	  gpio_init( ADC_RUBBISH_RX_GPIO_PORT, GPIO_MODE_INPUT, GPIO_SLEW_RATE_FAST, ADC_RUBBISH_RX_GPIO_PIN );
+    gpio_init( ADC_RUBBISH_NTC_GPIO_PORT,  GPIO_MODE_ANALOG, GPIO_SLEW_RATE_FAST, ADC_RUBBISH_NTC_GPIO_PIN );
+	  gpio_init( ADC_TANK_CLEAR_GPIO_PORT, GPIO_MODE_INPUT, GPIO_SLEW_RATE_FAST, ADC_TANK_CLEAR_GPIO_PIN );
+    gpio_init( ADC_RUBBISH_RX2_GPIO_PORT,  GPIO_MODE_ANALOG, GPIO_SLEW_RATE_FAST, ADC_RUBBISH_RX2_GPIO_PIN );
 	
     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_ADC);
 
@@ -38,7 +41,7 @@ void ADC_Init(void)
     ADC_InitStructure.ContinueConvEn = ENABLE;
     ADC_InitStructure.DatAlign       = ADC_DAT_ALIGN_R;
     ADC_InitStructure.ExtTrigSelect  = ADC_EXT_TRIGCONV_REGULAR_T4_CC4;
-    ADC_InitStructure.ChsNumber      = ADC_REGULAR_LEN_7;
+    ADC_InitStructure.ChsNumber      = ADC_REGULAR_LEN_10;
     ADC_Initializes(&ADC_InitStructure);
     
     /* ADC channel sampletime configuration */
@@ -54,12 +57,9 @@ void ADC_Init(void)
 			
 			//ADC_Channel_Sample_Time_Config(ADC_DrainValve_CHANNEL, ADC_SAMP_TIME_55CYCLES5);
 			
-			
 			/* ADC channel sampletime configuration */
       ADC_Channel_Sample_Time_Config(ADC_Channel_06_PA5, ADC_SAMP_TIME_55CYCLES5);
       /* ADC regular channel configuration */
-			
-			
       ADC_Regular_Sequence_Conversion_Number_Config(ADC_Channel_06_PA5, ADC_REGULAR_NUMBER_3);
 			
 			    /* ADC channel sampletime configuration */
@@ -81,6 +81,18 @@ void ADC_Init(void)
     /* ADC regular channel configuration */
       ADC_Regular_Sequence_Conversion_Number_Config(ADC_Channel_12_PB10, ADC_REGULAR_NUMBER_7);
     
+      ADC_Channel_Sample_Time_Config(ADC_Channel_10_PB1, ADC_SAMP_TIME_55CYCLES5);
+    /* ADC regular channel configuration */
+      ADC_Regular_Sequence_Conversion_Number_Config(ADC_Channel_10_PB1, ADC_REGULAR_NUMBER_8);
+
+      ADC_Channel_Sample_Time_Config(ADC_Channel_03_PA2, ADC_SAMP_TIME_55CYCLES5);
+    /* ADC regular channel configuration */
+      ADC_Regular_Sequence_Conversion_Number_Config(ADC_Channel_03_PA2, ADC_REGULAR_NUMBER_9);
+
+      ADC_Channel_Sample_Time_Config(ADC_Channel_13_PB11, ADC_SAMP_TIME_55CYCLES5);
+    /* ADC regular channel configuration */
+      ADC_Regular_Sequence_Conversion_Number_Config(ADC_Channel_13_PB11, ADC_REGULAR_NUMBER_10);
+
     /* Enable ADC DMA */
     ADC_DMA_Transfer_Enable();
 

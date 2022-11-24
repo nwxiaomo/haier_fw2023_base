@@ -7,6 +7,7 @@ rt_sem_t sem_UserTick_1ms;      // 信号量，1ms时钟
 uint8_t  read_data = 0;
 void UserMain(void)
 {
+	  static uint8_t  cnt = 0;
     sem_UserTick_1ms = rt_sem_create("tick1ms", 0, RT_IPC_FLAG_FIFO);
 	
 		Log_Init();
@@ -21,6 +22,8 @@ void UserMain(void)
 
     //////// Start ////////
     Bsp_Start();
+
+    //Drv_Start_All();
 
     for (;;)
     {
@@ -76,9 +79,10 @@ void UserMain(void)
             if (Mcu.Tick_Loop_3s < 3-1)
             {
                 Mcu.Tick_Loop_3s++;
+
             }
             else
-            {
+            {   
 								LOG_DEB("user main running........");
                 Mcu.Tick_Loop_3s = 0;
                 

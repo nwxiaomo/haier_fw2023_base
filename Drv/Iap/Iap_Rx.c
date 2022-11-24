@@ -310,13 +310,13 @@ void HeatBase_Rx_Frame_Analyze(void)
 						switch (Iap_Rx.Frame.Data[4])
             {
                 case 0x00:
-									Drain_Valve_Stop();
+									Drain_Valve_Start(DRAIN_VALVE_BACKWARD);
                   break;
 
                 case 0x01:
 									if( Mop.State == MopState_Run)
 									{
-											Drain_Valve_Start();
+											Drain_Valve_Start(DRAIN_VALVE_FORWARD);
 									}
                   break;
 

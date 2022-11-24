@@ -9,4 +9,6 @@ void TIM5_Init(void);
 
 void Inhale_Duty_Set(uint32_t Duty);
 
+void Drain_Valve_Duty_Set(uint32_t Duty);
+
 #endif

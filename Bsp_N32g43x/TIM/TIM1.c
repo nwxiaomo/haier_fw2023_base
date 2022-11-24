@@ -9,9 +9,10 @@ static void TIM1_GPIO_Configuration(void)
 	  GPIO_InitStructure.GPIO_Current = GPIO_DS_4MA;
     /* GPIOA Configuration:TIM1 Channel1 2 3 4 as alternate function push-pull */
 	
-    GPIO_InitStructure.Pin        = GPIO_PIN_8;
-    GPIO_InitStructure.GPIO_Alternate = GPIO_AF3_TIM1;
-    GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
+//  原排水阀的控制IO
+//    GPIO_InitStructure.Pin        = GPIO_PIN_8;
+//    GPIO_InitStructure.GPIO_Alternate = GPIO_AF3_TIM1;
+//    GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
 	
 //	  GPIO_InitStructure.Pin        = GPIO_PIN_9;
 //    GPIO_InitStructure.GPIO_Alternate = GPIO_AF3_TIM1;
@@ -51,12 +52,12 @@ void TIM1_Init(void)
     /* PWM CH4 Mode configuration: Channel1 */
     TIM_OCInitStructure.OcMode      = TIM_OCMODE_PWM1;
     TIM_OCInitStructure.OutputState = TIM_OUTPUT_STATE_ENABLE;
-    //TIM_OCInitStructure.Pulse       = 800;
+    TIM_OCInitStructure.Pulse       = 0;
     TIM_OCInitStructure.OcPolarity  = TIM_OC_POLARITY_HIGH;
 
-    TIM_Output_Channel1_Initialize(TIM1, &TIM_OCInitStructure);
+//    TIM_Output_Channel1_Initialize(TIM1, &TIM_OCInitStructure);
 
-    TIM_Output_Channel1_Preload_Set(TIM1, TIM_OC_PRELOAD_ENABLE);
+//    TIM_Output_Channel1_Preload_Set(TIM1, TIM_OC_PRELOAD_ENABLE);
 
 //    TIM_Output_Channel2_Initialize(TIM1, &TIM_OCInitStructure);
 
@@ -79,10 +80,10 @@ void TIM1_Init(void)
 }
 
 
-void TIM1_CH1_Duty_Set(uint32_t Duty)
-{
-	  TIM1->CCDAT1 = Duty;
-}
+//void TIM1_CH1_Duty_Set(uint32_t Duty)
+//{
+//	  TIM1->CCDAT1 = Duty;
+//}
 
 void TIM1_CH2_Duty_Set(uint32_t Duty)
 {
@@ -99,10 +100,10 @@ void TIM1_CH4_Duty_Set(uint32_t Duty)
     TIM1->CCDAT4 = Duty;
 }
 
-void Bsp_Drain_Valve_Duty_Set(uint32_t Duty)
-{
-    TIM1_CH1_Duty_Set(Duty);
-}
+//void Bsp_Drain_Valve_Duty_Set(uint32_t Duty)
+//{
+//    TIM1_CH1_Duty_Set(Duty);
+//}
 
 void Bsp_Cooling_Fan_Duty_Set(uint32_t Duty)
 {

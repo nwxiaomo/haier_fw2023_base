@@ -15,6 +15,7 @@
 #include "Drv_Common.h"
 #include "peristaltic_Pump.h"
 #include "monitor.h"
+#include "tankclear.h"
 
 
 void Drv_Init(void);

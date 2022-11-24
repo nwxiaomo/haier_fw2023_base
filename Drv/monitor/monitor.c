@@ -46,7 +46,7 @@ void Drain_Valve_Info_Update(void)
 	
     voltage = ADC_2_VOLTAGE(sADC.Value_Filtered_1ms[ADC_CH_DrainValve]);
 	
-    if (drain_valve.State != State_Run)
+    if ( drain_valve_info.device.State != State_Run)
     {
         newState = Working_State_Reset;
     }
@@ -161,7 +161,7 @@ void Base_Inflow_Info_Update(void)
 	
     if (getVoterResult(voltage, BASE_INFLOW_THRESHOLD))	//
     {
-        newState = Working_State_Set; // µ××ùË®Á¿¼ì²â ½øË®
+        newState = Working_State_Set; // ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ë®
 				LOG_ERR("The water inflow to base.");
     }
     else
@@ -182,8 +182,8 @@ void Base_NTC_Info_Update(void)
 	
     if (getVoterResult(voltage, BASE_NTC_THRESHOLD))	//
     {
-        newState = Working_State_Set; // ÎÂ¶È¹ý¸ß
-			  LOG_ERR("The base temperature is too high.");
+        newState = Working_State_Set; // ï¿½Â¶È¹ï¿½ï¿½ï¿½
+		LOG_ERR("The base temperature is too high.");
     }
     else
     {
@@ -192,6 +192,48 @@ void Base_NTC_Info_Update(void)
 
 		base_module.Base_NTC_Info.ModuleState = newState;
 		base_module.Base_NTC_Info.Voltage = voltage;	
+}
+
+void Rubbish_Drying_NTC_Info_Update(void)
+{
+		uint32_t voltage = 0;
+	  Working_State newState = Working_State_Reset;
+	
+    voltage = ADC_2_VOLTAGE(sADC.Value_Filtered_1ms[ADC_CH_Rubbish_NTC]);
+	
+    if (getVoterResult(voltage, RUBBISH_DRYING_NTC_THRESHOLD))	//
+    {
+        newState = Working_State_Set; // ï¿½Â¶È¹ï¿½ï¿½ï¿½
+		LOG_ERR("The rubbish drying temperature is too high.");
+    }
+    else
+    {
+        newState = Working_State_Reset;
+    }
+
+		base_module.Rubbish_Drying_NTC_Info.ModuleState = newState;
+		base_module.Rubbish_Drying_NTC_Info.Voltage = voltage;	
+}
+
+void Tank_Clear_Pump_Info_Update(void)
+{
+		uint32_t voltage = 0;
+	  Working_State newState = Working_State_Reset;
+	
+    voltage = ADC_2_VOLTAGE(sADC.Value_Filtered_1ms[ADC_CH_Tank_Clear]);
+	
+    if (getVoterResult(voltage, TANK_CLEAR_PUMP_THRESHOLD))	//
+    {
+        newState = Working_State_Set; // ï¿½Â¶È¹ï¿½ï¿½ï¿½
+		LOG_ERR("The rubbish drying temperature is too high.");
+    }
+    else
+    {
+        newState = Working_State_Reset;
+    }
+
+		base_module.Tank_Clear_Pump_Info.ModuleState = newState;
+		base_module.Tank_Clear_Pump_Info.Voltage = voltage;	
 }
 
 void Trash_Basket_Info_Update(void)
@@ -205,7 +247,7 @@ void Trash_Basket_Info_Update(void)
     }
     else
     {
-        newState = Working_State_Set; //À¬»øÂ¨²»ÔÚÎ»
+        newState = Working_State_Set; //ï¿½ï¿½ï¿½ï¿½Â¨ï¿½ï¿½ï¿½ï¿½Î»
     }
 
 		base_module.Trash_Basket_Info.ModuleState = newState;
@@ -213,16 +255,20 @@ void Trash_Basket_Info_Update(void)
 
 void Trash_Basket_Full_Info_Update(void)
 {
-		uint32_t voltage = 0;
-	  Working_State newState = Working_State_Reset;
+	uint32_t voltage = 0;
+	uint32_t voltage2 = 0;
+	Working_State newState = Working_State_Reset;
 	  
-    if ( RUBBISH_IR_RX_READ() == 1 )	
+    voltage = ADC_2_VOLTAGE(sADC.Value_Filtered_1ms[ADC_CH_Rubbish_RX]);
+	voltage2 = ADC_2_VOLTAGE(sADC.Value_Filtered_1ms[ADC_CH_Rubbish_RX2]);
+
+	if( getVoterResult(voltage, TRASH_BASKET_RX_THRESHOLD) && getVoterResult(voltage, TRASH_BASKET_RX2_THRESHOLD) )	
     {
-        newState = Working_State_Reset; 
+        newState = Working_State_Set; 
     }
     else
     {
-        newState = Working_State_Set; //À¬»øÂ¨ÒÑÂú
+        newState = Working_State_Reset; //ï¿½ï¿½ï¿½ï¿½Â¨ï¿½ï¿½ï¿½ï¿½
     }
 
 		base_module.Trash_Basket_Full_Info.ModuleState = newState;
@@ -239,7 +285,7 @@ void Cleaning_Material_Info_Update(void)
     }
     else
     {
-        newState = Working_State_Set; //È±Çå½àÒº
+        newState = Working_State_Set; //È±ï¿½ï¿½ï¿½Òº
     }
 
 		base_module.Cleaning_Material_Info.ModuleState = newState;
@@ -252,7 +298,7 @@ void Drain_Valve_liquid_Info_Update(void)
 	
     if ( VALVE_LIQUID_LEVEL_READ() == 1 )	
     {
-        newState = Working_State_Reset; // ÅÅË®·§ÒºÎ»Õý³£
+        newState = Working_State_Reset; // ï¿½ï¿½Ë®ï¿½ï¿½ÒºÎ»ï¿½ï¿½ï¿½ï¿½
     }
     else
     {
@@ -261,6 +307,75 @@ void Drain_Valve_liquid_Info_Update(void)
 
 		base_module.Drain_Valve_liquid_Info.ModuleState = newState;
 }
+
+void Tank_Clear_Full_Info_Update(void)
+{
+		uint32_t voltage = 0;
+	  Working_State newState = Working_State_Reset;
+	
+    if ( TANK_CLEAR_FULL_CHECK_READ() == 0 )
+    {
+        newState = Working_State_Set; // ï¿½ï¿½Ë®ï¿½ï¿½ÒºÎ»ï¿½ï¿½ï¿½ï¿½
+    }
+    else
+    {
+        newState = Working_State_Reset;
+    }
+
+		base_module.Tank_Clear_Full_Info.ModuleState = newState;
+}
+
+void Tank_Clear_Not_Water_Info_Update(void)
+{
+		uint32_t voltage = 0;
+	  Working_State newState = Working_State_Reset;
+	
+    if ( TANK_CLEAR_NOT_WATER_CHECK_READ() == 1 )
+    {
+        newState = Working_State_Set; // ï¿½ï¿½Ë®ï¿½ï¿½ÒºÎ»ï¿½ï¿½ï¿½ï¿½
+    }
+    else
+    {
+        newState = Working_State_Reset;
+    }
+
+		base_module.Tank_Clear_Not_Water_Info.ModuleState = newState;
+}
+
+void Drain_Valve_On_Left_Info_Update(void)
+{
+		uint32_t voltage = 0;
+	  Working_State newState = Working_State_Reset;
+	
+    if ( DRAIN_VALVE_LEFT_SENSE_READ() == 1 )
+    {
+        newState = Working_State_Set; // ï¿½ï¿½Ë®ï¿½ï¿½ÒºÎ»ï¿½ï¿½ï¿½ï¿½
+    }
+    else
+    {
+        newState = Working_State_Reset;
+    }
+
+		base_module.Drain_Valve_On_Left_Info.ModuleState = newState;
+}
+
+void Drain_Valve_On_Right_Info_Update(void)
+{
+		uint32_t voltage = 0;
+	  Working_State newState = Working_State_Reset;
+	
+    if ( DRAIN_VALVE_RIGHT_SENSE_READ() == 1 )
+    {
+        newState = Working_State_Set; // ï¿½ï¿½Ë®ï¿½ï¿½ÒºÎ»ï¿½ï¿½ï¿½ï¿½
+    }
+    else
+    {
+        newState = Working_State_Reset;
+    }
+		base_module.Drain_Valve_On_Right_Info.ModuleState = newState;
+}
+
+
 
 void Alternating_Current_Zero_Info_Updata(Working_State newState)
 {
@@ -289,22 +404,29 @@ void Monitor_Task(void)
 		  Base_Inflow_Info_Update();
 		  Base_NTC_Info_Update();
 		  Trash_Basket_Info_Update();
+		  Rubbish_Drying_NTC_Info_Update();
+		  Tank_Clear_Pump_Info_Update();
+		  Tank_Clear_Full_Info_Update();
+		  Tank_Clear_Not_Water_Info_Update();
+		  Drain_Valve_On_Left_Info_Update();
+		  Drain_Valve_On_Right_Info_Update();
+		  Trash_Basket_Full_Info_Update();
 		  
-		  if( get_rubbish_full_signal() == Signal_Trigger_Occur )
+/* 		  if( get_rubbish_full_signal() == Signal_Trigger_Occur )
 			{
 				if( TRASH_BASKET_FULL_CHECK_DELAY < ++base_module.Trash_Basket_Full_Info.Check_Delay)  
 				{
-					Trash_Basket_Full_Info_Update();//ÑÓÊ±Ò»¶ÎÊ±¼äÔÙ½øÐÐ¼ì²â
+					Trash_Basket_Full_Info_Update();//ï¿½ï¿½Ê±Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ù½ï¿½ï¿½Ð¼ï¿½ï¿½
 					set_rubbish_full_signal(Signal_Trigger_Waitting);
 					base_module.Trash_Basket_Full_Info.Check_Delay = 0;
 				}
-			}
+			} */
 			static uint8_t zero_signal_filter = 0;
 			if( get_zero_signal() == Signal_Trigger_Occur )
 			{		
 				  if( zero_signal_filter == 0 )
 					{
-						zero_signal_filter = 1; //µÚÒ»´Î¼ì²âµ½´¥·¢ÐÅºÅ Ïû¶¶ÏÈ¹ýÂËµô µÈ´ýÏÂÒ»´Î´¥·¢
+						zero_signal_filter = 1; //ï¿½ï¿½Ò»ï¿½Î¼ï¿½âµ½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¹ï¿½ï¿½Ëµï¿½ ï¿½È´ï¿½ï¿½ï¿½Ò»ï¿½Î´ï¿½ï¿½ï¿½
 						base_module.Alternating_Current_Zero_Info.Check_Delay = 0;
 					}
 					else
@@ -322,7 +444,7 @@ void Monitor_Task(void)
 				{
 					zero_signal_filter = 0;
 					base_module.Alternating_Current_Zero_Info.Check_Delay = 0;
-					Alternating_Current_Zero_Info_Updata(Working_State_Reset); //µÈ´ýÁË 3ÃëÖ®ºóÒ»Ö±Ã»ÓÐ´¥·¢ ¾ÍÈÏÎªÃ»ÓÐ¹ýÁãÐÅºÅÁË ½»Á÷µçµÄÕý³£ÆµÂÊÊÇ50Hz
+					Alternating_Current_Zero_Info_Updata(Working_State_Reset); //ï¿½È´ï¿½ï¿½ï¿½ 3ï¿½ï¿½Ö®ï¿½ï¿½Ò»Ö±Ã»ï¿½Ð´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ÎªÃ»ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½50Hz
 				} 
 			}
 			

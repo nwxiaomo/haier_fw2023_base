@@ -10,6 +10,10 @@
 #define BRUSH_FAN_WORK_THRESHOLD             (100)
 #define BASE_INFLOW_THRESHOLD                (2800)
 #define BASE_NTC_THRESHOLD                   (3800)
+#define RUBBISH_DRYING_NTC_THRESHOLD         (2800)
+#define TANK_CLEAR_PUMP_THRESHOLD            (2800)
+#define TRASH_BASKET_RX_THRESHOLD            (2800)
+#define TRASH_BASKET_RX2_THRESHOLD           (2800)
 
 
 #define TRASH_BASKET_FULL_CHECK_DELAY        (60) //3s
@@ -17,8 +21,8 @@
 
 typedef enum 
 {
-    Working_State_Reset = 0,   //�رչ���״̬
-    Working_State_Set,     //����״̬
+    Working_State_Reset = 0,   //�رչ���״̬
+    Working_State_Set,     //����״̬
 } Working_State;
 
 typedef struct{
@@ -36,12 +40,23 @@ typedef struct {
 	Module_Info_t Brush_Fan_Info;
 	Module_Info_t Base_Inflow_Info;
 	Module_Info_t Base_NTC_Info;
-	Module_Info_t Trash_Basket_Info;
+	Module_Info_t Trash_Basket_Info; //垃圾在位检测
 	Module_Info_t Trash_Basket_Full_Info;
 	Module_Info_t Cleaning_Material_Info;
 	Module_Info_t Drain_Valve_liquid_Info;
 	Module_Info_t Alternating_Current_Zero_Info;
+
+	Module_Info_t Rubbish_Drying_NTC_Info;
+	Module_Info_t Tank_Clear_Pump_Info;
 	
+	Module_Info_t Tank_Clear_Full_Info;
+	Module_Info_t Tank_Clear_Not_Water_Info;
+
+	Module_Info_t Drain_Valve_On_Left_Info;
+	Module_Info_t Drain_Valve_On_Right_Info;
+	
+
+
 }Module_t;
 
 extern Module_t base_module;

@@ -6,9 +6,33 @@
 
 #define LED_PERIOD   (100)
 
+typedef void ( * led_ctrl_func )(void); 
+
+typedef enum
+{
+    LedState_Off,
+    LedState_On,
+    LedState_FlashSlow,
+    LedState_FlashFast,
+    LedState_Breath,    // 
+} Led_State_t;
+
 extern Device_t rubbish_full_led;
 extern Device_t clean_led;
 extern Device_t fault_led;
+
+typedef struct{
+    Led_State_t led_state;
+    Device_t led_device;
+    led_ctrl_func led_on;
+    led_ctrl_func led_off;
+}led_info_t;
+
+typedef struct{
+    led_info_t rubbish_full_led;
+    led_info_t clean_led;
+    led_info_t fault_led;
+}led_list_t;
 
 void Led_Init(void);
 

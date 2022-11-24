@@ -15,6 +15,7 @@ void Bsp_Init(void)
     TIM4_Init();
 	  TIM5_Init();
 		TIM6_Init();
+	  TIM8_Init();
 	
 		Exti_Init();
 
