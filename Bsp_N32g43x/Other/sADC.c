@@ -34,7 +34,7 @@ void ADC_Init(void)
     ADC_InitStructure.ContinueConvEn = ENABLE;
     ADC_InitStructure.DatAlign       = ADC_DAT_ALIGN_R;
     ADC_InitStructure.ExtTrigSelect  = ADC_EXT_TRIGCONV_REGULAR_T4_CC4;
-    ADC_InitStructure.ChsNumber      = ADC_REGULAR_LEN_7;
+    ADC_InitStructure.ChsNumber      = ADC_REGULAR_LEN_3;
     ADC_Initializes(&ADC_InitStructure);
     
     /* ADC channel sampletime configuration */

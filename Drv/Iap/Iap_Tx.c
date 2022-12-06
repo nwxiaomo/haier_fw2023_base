@@ -111,7 +111,7 @@ void Iap_Tx_Respond(void)
                 Run_Data_t Run_Data = {0};
                 //
                 Run_Data.Brush_State = brush_fan.State;
-                Run_Data.Heater_State = brush_heater.State;  //todo
+                Run_Data.Heater_State = brush_heater.device.State;  //todo
                 Run_Data.NULL_State = 0;
 				        Run_Data.Mop_ERROR_State = Mop.Error;
 
@@ -152,7 +152,7 @@ void Iap_Tx_Request(void)
 
     //////// 准备数据
 		pIap_Tx_Frame->Data[0] = brush_fan.State;
-		pIap_Tx_Frame->Data[1] = brush_heater.State;
+		pIap_Tx_Frame->Data[1] = brush_heater.device.State;
 		pIap_Tx_Frame->Data[2] = 0;
 		pIap_Tx_Frame->Data[3] = Mop.Error;
 		

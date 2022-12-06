@@ -16,7 +16,7 @@ typedef struct
     uint32_t Tick;
 	
     Running_State_t State;
-
+	
     /*Test*/
     //uint32_t Test_Cnt;
 } Device_t;

@@ -13,23 +13,21 @@ typedef struct
     uint16_t filter[ADC_FILTER_SIZE];
 }TFilter;
 
-TFilter g_adc_filter = {0};
-
-uint8_t getVoterResult(uint16_t value, uint16_t threshold)
+uint8_t getVoterResult(uint16_t value, uint16_t threshold, TFilter * g_adc_filter)
 {
     uint32_t sum = 0;
     uint8_t cnt = 0;
 
-    g_adc_filter.filter[g_adc_filter.index] = value;
+    g_adc_filter->filter[g_adc_filter->index] = value;
 	
-		g_adc_filter.index = (g_adc_filter.index++ >= ADC_FILTER_SIZE)? 0 : g_adc_filter.index++;
+		g_adc_filter->index = (g_adc_filter->index++ >= ADC_FILTER_SIZE)? 0 : g_adc_filter->index++;
 
     
-    g_adc_filter.length = g_adc_filter.length < ADC_FILTER_SIZE ? ++g_adc_filter.length : g_adc_filter.length;
+    g_adc_filter->length = g_adc_filter->length < ADC_FILTER_SIZE ? ++g_adc_filter->length : g_adc_filter->length;
 
-    for(uint8_t i = 0; i < g_adc_filter.length; i++)
+    for(uint8_t i = 0; i < g_adc_filter->length; i++)
     {
-        if(g_adc_filter.filter[i] < threshold)
+        if(g_adc_filter->filter[i] < threshold)
         {
             cnt++;
         }
@@ -52,7 +50,7 @@ void Brush_Fan_Info_Update(void)
     }
 		else
 		{
-			if ( voltage < BRUSH_FAN_WORK_THRESHOLD)
+			if ( voltage > BRUSH_FAN_WORK_THRESHOLD_MAX || voltage < BRUSH_FAN_WORK_THRESHOLD_MIN)
 			{
 					newState = Working_State_Reset;
 			}
@@ -74,8 +72,8 @@ void Base_Inflow_Info_Update(void)
 	  Working_State newState = Working_State_Reset;
 	
     voltage = ADC_2_VOLTAGE(sADC.Value_Filtered_1ms[ADC_CH_Inflow]);
-	
-    if (getVoterResult(voltage, BASE_INFLOW_THRESHOLD))	//
+		static TFilter g_adc_filter = {0};
+    if (getVoterResult(voltage, BASE_INFLOW_THRESHOLD,&g_adc_filter))	//
     {
         newState = Working_State_Set; // 底座水量检测 进水
 				LOG_ERR("The water inflow to base.");
@@ -96,7 +94,8 @@ void Base_NTC_Info_Update(void)
 	
     voltage = ADC_2_VOLTAGE(sADC.Value_Filtered_1ms[ADC_CH_NtcTemperature]);
 	
-    if (getVoterResult(voltage, BASE_NTC_THRESHOLD))	//
+		static TFilter g_adc_filter = {0};
+    if (getVoterResult(voltage, BASE_NTC_THRESHOLD,&g_adc_filter))	//
     {
         newState = Working_State_Set; // 温度过高
 			  LOG_ERR("The base temperature is too high.");

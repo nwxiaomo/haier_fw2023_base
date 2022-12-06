@@ -3,12 +3,12 @@
 #include "monitor.h"
 #include "IO.h"
 
-Device_t brush_heater = {0};
+brush_heater_info_t brush_heater = {0};
 
 
-void Brush_Heater_Init(void)
+void Brush_Heater_DeInit(void)
 {
-	
+	brush_heater.working_state = HEATER_NORMAL;
 }
 
 //////// Bsp
@@ -26,10 +26,11 @@ static void Brush_Heater_Close(void)
 void Brush_Heater_Start(void)
 {
 		//风扇不开不能开发热体
-		if( brush_fan.State == State_Run)
+	  //工作异常不能再开发热体
+		if( base_module.Brush_Fan_Info.ModuleState == Working_State_Set && brush_heater.working_state == HEATER_NORMAL )
 		{	
 			Brush_Heater_Open();
-			brush_heater.State = State_Run;
+			brush_heater.device.State = State_Run;
 		}
 		
 }
@@ -37,22 +38,28 @@ void Brush_Heater_Start(void)
 void Brush_Heater_Stop(void)
 {
     Brush_Heater_Close();
-    brush_heater.State = State_Stop;
+    brush_heater.device.State = State_Stop;
 }
 
 void Brush_Heater_Task(void)
 {
     if (50 == Mcu.Tick_Loop_100ms)
     {
-        switch (brush_heater.State)
+        switch (brush_heater.device.State)
         {
             case State_Stop:
 								
                 break;
 
             case State_Run:
-								if( base_module.Brush_Fan_Info.ModuleState == Working_State_Reset )
+								if( (base_module.Brush_Fan_Info.ModuleState == Working_State_Reset)  )
 								{
+									Brush_Heater_Stop();
+								}
+								
+								if( (base_module.Base_NTC_Info.ModuleState == Working_State_Set) )
+								{
+									brush_heater.working_state = HEATER_ABNORMAL;
 									Brush_Heater_Stop();
 								}
                 break;

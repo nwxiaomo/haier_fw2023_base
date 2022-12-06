@@ -23,7 +23,6 @@ void Mop_Step_Off(void)
 
 void Mop_Start(void)
 {
-    
     Mop.Tick = 0; 
     Mop.State = MopState_Start;
     //
@@ -78,7 +77,7 @@ void Mop_Task(void)
         case MopState_Start:
 			// 底座水满
 				  LOG_DEB("The mop state is start.");
-					if (base_module.Base_Inflow_Info.ModuleState == 1)
+					if (base_module.Base_Inflow_Info.ModuleState == Working_State_Set)
 					{
 						LOG_ERR("mop error:[water full]");
 						Mop_Error(MopError_Base_WaterFull);
@@ -94,7 +93,7 @@ void Mop_Task(void)
             //////// 故障检测
 					// 底座水满
 					LOG_DEB("The mop state is run.");
-					if (base_module.Base_Inflow_Info.ModuleState == 1)
+					if (base_module.Base_Inflow_Info.ModuleState == Working_State_Set)
 					{	
 						LOG_ERR("mop error:[water full]");
 						Mop_Error(MopError_Base_WaterFull);

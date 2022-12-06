@@ -4,9 +4,10 @@
 #include "Drv_Common.h"
 #include "Drv.h"
 
-#define BRUSH_FAN_WORK_THRESHOLD             (100)
+#define BRUSH_FAN_WORK_THRESHOLD_MAX             (1200)
+#define BRUSH_FAN_WORK_THRESHOLD_MIN             (10)
 #define BASE_INFLOW_THRESHOLD                (2800)
-#define BASE_NTC_THRESHOLD                   (3800)
+#define BASE_NTC_THRESHOLD                   (620)
 
 typedef enum 
 {

@@ -134,6 +134,7 @@ void AppState_Goto(App_State_t NewState)
             break;
 
         case AppState_Mop:
+					  Brush_Heater_DeInit(); //重新初始化发热丝异常状态
             Mop_Start();
             break;
 
